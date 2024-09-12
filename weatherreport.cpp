@@ -3,7 +3,7 @@
 #include <iostream>
 
 using std::cout;
-using std::endl; 
+using std::endl;
 using std::string;
 
 namespace WeatherSpace {
@@ -37,13 +37,13 @@ class SensorStub : public IWeatherSensor {
         return m_windspeed;
     }
 
-public:
+ public:
     int m_humidity;
     int m_precipitation;
-    double m_temperature; 
+    double m_temperature;
     int m_windspeed;
-    SensorStub(int humidity=72, int precipitation=70,
-               double temperature=26, int windspeed=52):
+    SensorStub(int humidity = 72, int precipitation = 70,
+                double temperature = 26, int windspeed = 52):
         m_humidity(humidity), m_precipitation(precipitation),
         m_temperature(temperature), m_windspeed(windspeed){}
 };
@@ -79,7 +79,7 @@ void TestRainy() {
 void TestHighPrecipitationAndLowWindspeed() {
     // This instance of stub needs to be different-
     // to give high precipitation (>60) and low wind-speed (<50)
-    SensorStub sensor = {72,70,26,32};
+    SensorStub sensor = {72 , 70 , 26 , 32};
 
     // strengthen the assert to expose the bug
     // (function returns Sunny day, it should predict rain)
