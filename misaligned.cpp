@@ -13,16 +13,11 @@ void testPrintColorPair(const char* majorColorArr[], const char* minorColorArr[]
                         int i, int j) {
     std::stringstream ss;
     printColorPair(majorColorArr, minorColorArr, i, j, ss);
-    // tests
-    std::string str;
-    std::getline(ss, str, '|');
-    assert((i * 5 + j) == std::stoi(str));
-    std::getline(ss, str, '|');
-    str.erase(std::remove_if(str.begin(), str.end(), std::isspace), std::end(str));
-    assert(majorColorArr[i] == str);
-    std::getline(ss, str, '|');
-    str.erase(std::remove_if(str.begin(), str.end(), std::isspace), std::end(str));
-    assert(minorColorArr[j] == str);
+    // test
+    auto str = std::to_string((i * 5 + j)) + " | " + std::string(majorColorArr[i]) + " | " + std::string(minorColorArr[j]);
+    std::string inputStr;
+    std::getline(ss, inputStr);
+    assert(str == inputStr);
 }
 
 int printColorMap(const char** majorColorArr, const char** minorColorArr) {
