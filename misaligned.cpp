@@ -14,7 +14,8 @@ void testPrintColorPair(const char* majorColorArr[], const char* minorColorArr[]
     std::stringstream ss;
     printColorPair(majorColorArr, minorColorArr, i, j, ss);
     // test
-    auto str = std::to_string((i * 5 + j)) + " | " + std::string(majorColorArr[i]) + " | " + std::string(minorColorArr[j]);
+    auto str = std::to_string((i * 5 + j)) + " | " + std::string(majorColorArr[i]) + 
+                              " | " + std::string(minorColorArr[j]);
     std::string inputStr;
     std::getline(ss, inputStr);
     assert(str == inputStr);
