@@ -26,8 +26,7 @@ int testPrintColorMap(const char* majorColorArr[], const char* minorColorArr[]) 
         for (int j = 0; j < 5; j++) {
             std::stringstream ss;
             printColorPair(majorColorArr, minorColorArr, i, j, ss);
-            
-            // Donot stop test at first failure. 
+            // Donot stop test at first failure.
             // Count sucessfull & unsucessfull tests
             auto str = std::to_string((i * 5 + j)) + " | " + std::string(majorColorArr[i]) +
                 " | " + std::string(minorColorArr[j]);
@@ -36,8 +35,7 @@ int testPrintColorMap(const char* majorColorArr[], const char* minorColorArr[]) 
             if (str == inputStr) {
                 std::cout << "Test Successfull for: " << "(" << i << "," << j << ")" << "\n";
                 retNumSucessTests++;
-            }
-            else {
+            } else {
                 std::cout << "Test FAILED for: " << "(" << i << "," << j << ")" << "\n";
             }
         }
