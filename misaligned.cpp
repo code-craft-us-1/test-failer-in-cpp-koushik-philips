@@ -4,16 +4,16 @@
 #include <string>
 #include <algorithm>
 
-void printColorPair(const char* majorColorArr[], const char* minorColorArr[], int i, int j, std::ostream& out)
-{
+void printColorPair(const char* majorColorArr[], const char* minorColorArr[], 
+                   int i, int j, std::ostream& out){
     out << i * 5 + j << " | " << majorColorArr[i] << " | " << minorColorArr[i] << "\n";
 }
 
-void testPrintColorPair(const char* majorColorArr[], const char* minorColorArr[], int i, int j)
-{
+void testPrintColorPair(const char* majorColorArr[], const char* minorColorArr[], 
+                        int i, int j){
     std::stringstream ss;
     printColorPair(majorColorArr, minorColorArr, i, j, ss);
-    //tests
+    // tests
     std::string str;
     std::getline(ss, str, '|');
     assert((i * 5 + j) == std::stoi(str));
