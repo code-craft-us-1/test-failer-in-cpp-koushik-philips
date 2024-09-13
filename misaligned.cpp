@@ -15,7 +15,7 @@ int printColorMap() {
     int i = 0, j = 0;
     for (i = 0; i < 5; i++) {
         for (j = 0; j < 5; j++) {
-            printColorPair(majorColor, minorColor, i, j, std::cout); // core part
+            printColorPair(majorColor, minorColor, i, j, std::cout);  // core part
         }
     }
     return i * j;
@@ -31,7 +31,7 @@ int testPrintColorMap() {
             std::stringstream ss;
             printColorPair(majorColor, minorColor, i, j, ss);
             // Donot stop test at first failure.
-            // Count sucessfull & unsucessfull tests
+            // Count sucessfull tests and return it
             auto str = std::to_string((i * 5 + j)) + " | " + std::string(majorColor[i]) +
                 " | " + std::string(minorColor[j]);
             std::string inputStr;
@@ -39,8 +39,7 @@ int testPrintColorMap() {
             if (str == inputStr) {
                 std::cout << "Test Successfull for: " << "(" << i << "," << j << ")" << "\n";
                 retNumSucessTests++;
-            }
-            else {
+            } else {
                 std::cout << "Test FAILED for: " << "(" << i << "," << j << ")" << "\n";
             }
         }
