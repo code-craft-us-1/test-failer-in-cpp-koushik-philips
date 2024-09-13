@@ -3,51 +3,54 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
+#include <regex>
 
-void printColorPair(const char* majorColorArr[], const char* minorColorArr[],
-                   int i, int j, std::ostream& out) {
-    out << i * 5 + j << " | " << majorColorArr[i] << " | " << minorColorArr[i] << "\n";
-}
-
-int printColorMap(const char** majorColorArr, const char** minorColorArr) {
+int printColorMap(std::ostream& out) {
+    const char* majorColor[] = { "White", "Red", "Black", "Yellow", "Violet" };
+    const char* minorColor[] = { "Blue", "Orange", "Green", "Brown", "Slate" };
     int i = 0, j = 0;
     for (i = 0; i < 5; i++) {
         for (j = 0; j < 5; j++) {
-            printColorPair(majorColorArr, minorColorArr, i, j, std::cout);
+            out << i * 5 + j << " | " << majorColor[i] << " | " << minorColor[j] << "\n";
         }
     }
     return i * j;
 }
 
-// Test
-int testPrintColorMap(const char* majorColorArr[], const char* minorColorArr[]) {
-    int retNumSucessTests = 0;
-    for (int i = 0; i < 5; i++)
-        for (int j = 0; j < 5; j++) {
-            std::stringstream ss;
-            printColorPair(majorColorArr, minorColorArr, i, j, ss);
-            // Donot stop test at first failure.
-            // Count sucessfull & unsucessfull tests
-            auto str = std::to_string((i * 5 + j)) + " | " + std::string(majorColorArr[i]) +
-                " | " + std::string(minorColorArr[j]);
-            std::string inputStr;
-            std::getline(ss, inputStr);
-            if (str == inputStr) {
-                std::cout << "Test Successfull for: " << "(" << i << "," << j << ")" << "\n";
-                retNumSucessTests++;
-            } else {
-                std::cout << "Test FAILED for: " << "(" << i << "," << j << ")" << "\n";
+int testPrintColorMap()
+{
+    std::stringstream ss;
+    int result = printColorMap(ss);
+
+    int nNumEntriesInPrint = 0;
+    const char* majorColor[] = { "White", "Red", "Black", "Yellow", "Violet" };
+    const char* minorColor[] = { "Blue", "Orange", "Green", "Brown", "Slate" };
+    std::string inputStr;
+    int nMajorIdx = 0, nMinorIdx = 0;
+    while (std::getline(ss, inputStr, '\n'))
+    {
+        std::regex r("(^[0-9]+ )[|] ([a-zA-Z]+) [|] ([a-zA-Z]+)$");
+        std::smatch s;
+        assert(std::regex_search(inputStr, s, r));                  // Alignment of "|" check
+        {
+            assert((nMajorIdx * 5 + nMinorIdx) == std::stoi(s[1])); // Number check
+            assert(majorColor[nMajorIdx] == s[2]);                  // MajorColor check
+            assert(minorColor[nMinorIdx] == s[3]);                  // MinorColor check
+            nMinorIdx++;
+            if (nMinorIdx == 5) {
+                nMinorIdx = 0;
+                nMajorIdx++;
             }
         }
-    return retNumSucessTests;
+        nNumEntriesInPrint++;
+    }
+    return nNumEntriesInPrint;
 }
 
 int main() {
-    const char* majorColor[] = { "White", "Red", "Black", "Yellow", "Violet" };
-    const char* minorColor[] = { "Blue", "Orange", "Green", "Brown", "Slate" };
-    int result = printColorMap(majorColor, minorColor);
+    int result = printColorMap(std::cout);
     assert(result == 25);
-    assert(testPrintColorMap(majorColor, minorColor) == 25);
+    assert(testPrintColorMap() == 25);
     std::cout << "All is well (maybe!)\n";
     return 0;
 }
