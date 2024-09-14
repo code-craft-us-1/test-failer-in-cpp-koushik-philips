@@ -18,7 +18,7 @@ int printColorMap(std::ostream& out) {
 }
 
 // Test - core part
-std::tuple<int,int,int,int> testPrintColorMap() {
+std::tuple<int, int, int, int> testPrintColorMap() {
     std::stringstream ss;
     int result = printColorMap(ss);
     // test
@@ -49,8 +49,7 @@ std::tuple<int,int,int,int> testPrintColorMap() {
             nCntFullMatch++;
         }
         j++;
-        if (j == 5)
-        {
+        if (j == 5) {
             j = 0;
             i++;
         }
