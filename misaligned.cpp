@@ -20,7 +20,7 @@ int printColorMap(std::ostream& out) {
 // Test - core part
 std::tuple<int, int, int, int> testPrintColorMap() {
     std::stringstream ss;
-    int result = printColorMap(ss);
+    printColorMap(ss);
     // test
     const char* majorColor[] = { "White", "Red", "Black", "Yellow", "Violet" };
     const char* minorColor[] = { "Blue", "Orange", "Green", "Brown", "Slate" };
