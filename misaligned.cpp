@@ -22,14 +22,14 @@ ResultData testPrintColorMap() {
     const char* minorColor[] = { "Blue", "Orange", "Green", "Brown", "Slate" };
     ResultData testResult;
     std::string inputStr;
-    int i = 0, j = 0;
+    int majorClrIdx = 0, minorClrIdx = 0;
     while (std::getline(ss, inputStr, '\n')) {
         std::string numStr,  majorStr, minorStr, partitionStr;
         std::stringstream inputSS(inputStr);
         inputSS >> numStr >> partitionStr >> majorStr >> partitionStr >> minorStr;
-        auto expectedNumStr = std::to_string((i * 5 + j)+1);
-        auto expectedMajorStr = majorColor[i];
-        auto expectedMinorStr = minorColor[j];
+        auto expectedNumStr = std::to_string((majorClrIdx * 5 + minorClrIdx)+1);
+        auto expectedMajorStr = majorColor[majorClrIdx];
+        auto expectedMinorStr = minorColor[minorClrIdx];
         if (expectedNumStr == numStr) {
             testResult.nCntNumMatch++;
         }
@@ -44,10 +44,10 @@ ResultData testPrintColorMap() {
         if (expectedStr == inputStr) {
             testResult.nCntFullMatch++;
         }
-        j++;
-        if (j == 5) {
-            j = 0;
-            i++;
+        minorClrIdx++;
+        if (minorClrIdx == 5) {
+            minorClrIdx = 0;
+            majorClrIdx++;
         }
     }
     return testResult;
