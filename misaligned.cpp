@@ -4,49 +4,46 @@
 #include <string>
 #include <algorithm>
 #include <tuple>
+#include "colorMap.h"
 
-int printColorMap(std::ostream& out) {
-    const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
-    const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
-    int i = 0, j = 0;
-    for (i = 0; i < 5; i++) {
-        for (j = 0; j < 5; j++) {
-            out << i * 5 + j << " | " << majorColor[i] << " | " << minorColor[i] << "\n";
-        }
-    }
-    return i * j;
-}
+struct ResultData
+{
+    int nCntNumMatch=0;
+    int nCntMajorMatch=0;
+    int nCntMinorMatch=0;
+    int nCntFullMatch=0;
+};
 
-// Test - core part
-std::tuple<int, int, int, int> testPrintColorMap() {
+// Test
+ResultData testPrintColorMap() {
     std::stringstream ss;
     printColorMap(ss);
     // test
     const char* majorColor[] = { "White", "Red", "Black", "Yellow", "Violet" };
     const char* minorColor[] = { "Blue", "Orange", "Green", "Brown", "Slate" };
-    int nCntNumMatch = 0, nCntMajorMatch = 0, nCntMinorMatch = 0, nCntFullMatch = 0;
+    ResultData testResult;
     std::string inputStr;
     int i = 0, j = 0;
     while (std::getline(ss, inputStr, '\n')) {
         std::string numStr,  majorStr, minorStr, partitionStr;
         std::stringstream inputSS(inputStr);
         inputSS >> numStr >> partitionStr >> majorStr >> partitionStr >> minorStr;
-        auto expectedNumStr = std::to_string(i * 5 + j);
+        auto expectedNumStr = std::to_string((i * 5 + j)+1);
         auto expectedMajorStr = majorColor[i];
         auto expectedMinorStr = minorColor[j];
         if (expectedNumStr == numStr) {
-            nCntNumMatch++;
+            testResult.nCntNumMatch++;
         }
         if (expectedMajorStr == majorStr) {
-            nCntMajorMatch++;
+            testResult.nCntMajorMatch++;
         }
         if (expectedMinorStr == minorStr) {
-            nCntMinorMatch++;
+            testResult.nCntMinorMatch++;
         }
         std::string expectedStr = expectedNumStr + " | " + expectedMajorStr
                                   + " | " + expectedMinorStr;
         if (expectedStr == inputStr) {
-            nCntFullMatch++;
+            testResult.nCntFullMatch++;
         }
         j++;
         if (j == 5) {
@@ -54,17 +51,17 @@ std::tuple<int, int, int, int> testPrintColorMap() {
             i++;
         }
     }
-    return std::make_tuple(nCntNumMatch, nCntMajorMatch, nCntMinorMatch, nCntFullMatch);
+    return testResult;
 }
 
 int main() {
-    int result = printColorMap(std::cout);
-    assert(result == 25);
-    auto [num, major, minor, full] = testPrintColorMap();
-    assert(num == 25);      // Number match
-    assert(major == 25);    // Major-colors match
-    assert(minor == 25);    // Minor-colors match
-    assert(full == 25);     // Full match
+    int result = printColorMap(std::cout);          // Production code. Can be called separately
+    assert(result == 25);                           // Test code.
+    ResultData testResult = testPrintColorMap();    // Test code.
+    assert(testResult.nCntNumMatch == 25);          // Number match
+    assert(testResult.nCntMajorMatch == 25);        // Major-colors match
+    assert(testResult.nCntMinorMatch == 25);        // Minor-colors match
+    assert(testResult.nCntFullMatch == 25);         // Full match
     std::cout << "All is well (maybe!)\n";
     return 0;
 }
