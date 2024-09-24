@@ -6,12 +6,11 @@
 #include <tuple>
 #include "colorMap.h"
 
-struct ResultData
-{
-    int nCntNumMatch=0;
-    int nCntMajorMatch=0;
-    int nCntMinorMatch=0;
-    int nCntFullMatch=0;
+struct ResultData {
+    int nCntNumMatch = 0;
+    int nCntMajorMatch = 0;
+    int nCntMinorMatch = 0;
+    int nCntFullMatch = 0;
 };
 
 // Test

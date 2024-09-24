@@ -1,11 +1,12 @@
 #include <assert.h>
 #include <string>
 #include <iostream>
-#include "Sensor.h"
-#include "weatherreport.h"
-#include "weatherTests.h"
+#include "./Sensor.h"
+#include "./weatherreport.h"
+#include "./weatherTests.h"
 
-using namespace WeatherSpace;
+using WeatherSpace::TestRainy;
+using WeatherSpace::TestHighPrecipitationAndLowWindspeed;
 
 using std::cout;
 using std::endl;

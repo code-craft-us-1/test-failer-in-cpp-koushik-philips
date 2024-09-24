@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <iostream>
-#include "tshirts.h"
+#include "./tshirts.h"
 
 int main() {
     assert((size(38) == 'M') && (size(42) == 'L'));
